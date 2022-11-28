@@ -1,0 +1,18 @@
+version: "3"
+
+services:
+  tls-shunt-proxy:
+    image: v2ray-tls:latest
+    environment:
+      V2RAY: v2ray
+      HOST:
+    ports:
+      - 80:80
+      - 443:443
+    command: tsp
+
+  v2ray:
+    image: v2ray-tls:latest
+    environment:
+      UUID:
+    command: v2ray
