@@ -27,7 +27,7 @@ RUN apt-get update \
   && mkdir -p ${V2RAY_CONF} && cp -r ${VSRC_ROOT}/v2ray/geo* /etc/v2ray/ \
   && rm -r "${VSRC_ROOT}"
 
-COPY template /var/html
+COPY template /var/html/template
 COPY entrypoint.sh /root
 
 RUN chmod +x /root/entrypoint.sh
