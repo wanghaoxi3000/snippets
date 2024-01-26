@@ -1,21 +1,25 @@
 # CLASH-GATE
 
-clash 网关
+clash meta 网关
 
-## 下载 clash-premium
+## 下载 clash-meta
 ```
-curl -LO https://release.dreamacro.workers.dev/2023.01.29/clash-linux-amd64-2023.01.29.gz
-gzip -d clash-linux-amd64-2023.01.29.gz
+CLASH_VERSION=v1.18.0
+
+curl -LO https://github.com/MetaCubeX/mihomo/releases/download/${CLASH_VERSION}/mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
+gzip -d mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
 ```
 
 ## build docker
 ```
-docker build -t clash-gate:2023.01.29
+docker build -t clash-meta-gate:${CLASH_VERSION}
 ```
 
 ## RUN
+在当前目录创建自定义配置 router.yaml
+
 ```
-docker run --name clash-gate -td --network clash -v $(pwd)/config/router.yaml:/etc/clash/config/config.yaml --cap-add=NET_ADMIN clash-gate:alpine-2023.01.29
+docker run --name clash-gate -td --network clash -v $(pwd)/router.yaml:/etc/clash/config/config.yaml --cap-add=NET_ADMIN clash-meta-gate:${CLASH_VERSION}
 ```
 
 ## 本机连接

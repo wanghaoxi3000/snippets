@@ -2,7 +2,7 @@ FROM alpine:3
 
 ENV LANG=en_US.UTF-8
 
-COPY clash-linux-amd64-2023.01.29 /usr/bin/clash
+COPY clash-meta /usr/bin/clash
 COPY config/config.yaml /etc/clash/config/config.yaml
 COPY config/ui /etc/clash/config/ui
 COPY config/Country.mmdb /etc/clash/config/Country.mmdb
