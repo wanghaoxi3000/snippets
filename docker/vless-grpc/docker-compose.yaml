@@ -22,6 +22,5 @@ services:
     volumes:
      - /var/vless-grpc/caddy/Caddyfile:/etc/caddy/Caddyfile
      - /var/vless-grpc/caddy:/var/caddy
-     - /var/vless-grpc/caddy/site:/srv
      - /var/vless-grpc/caddy/data:/data
      - /var/vless-grpc/caddy/config:/config
