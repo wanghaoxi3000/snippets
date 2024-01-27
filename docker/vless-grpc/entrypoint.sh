@@ -52,6 +52,11 @@ gen_xray_config(){
         "rules": [
             {
                 "type": "field",
+                "domain": ["geosite:openai"],
+                "outboundTag": "direct"
+            },
+            {
+                "type": "field",
                 "ip": [
                     "geoip:cn",
                     "geoip:private"
@@ -94,7 +99,9 @@ ${HOST} {
                 }
         }
 
-        reverse_proxy https://bing.com
+        reverse_proxy https://bing.com {
+                header_up Host {upstream_hostport}
+        }
 }
 EOF
 }
