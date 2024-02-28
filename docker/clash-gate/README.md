@@ -29,3 +29,8 @@ ip addr add 192.168.50.3 dev clash-shim
 ip link set clash-shim up
 ip route add 192.168.50.2 dev clash-shim
 ```
+
+## 参考链接
+- https://jiajunhuang.com/articles/2022_11_20-router.md.html
+- https://zhuanlan.zhihu.com/p/563311580
+- https://haoyu.love/blog1412.html
