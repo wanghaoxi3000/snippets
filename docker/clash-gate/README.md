@@ -4,15 +4,16 @@ clash meta 网关
 
 ## 下载 clash-meta
 ```
-CLASH_VERSION=v1.18.0
+CLASH_VERSION=v1.18.5
 
 curl -LO https://github.com/MetaCubeX/mihomo/releases/download/${CLASH_VERSION}/mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
 gzip -d mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
+mv mihomo-linux-amd64-compatible-go120-${CLASH_VERSION} clash-meta
 ```
 
 ## build docker
 ```
-docker build -t clash-meta-gate:${CLASH_VERSION}
+docker build -t clash-meta-gate:${CLASH_VERSION} .
 ```
 
 ## RUN
