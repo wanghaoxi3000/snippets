@@ -16,6 +16,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
   && apk del tzdata \
   && adduser --disabled-password --home "$(pwd)" -G root --no-create-home --uid 1086 clash \
   && chown clash -R  /etc/clash/ \
+  && chmod +x /usr/bin/clash \
   && chmod +x /root/entrypoint.sh
 
 CMD ["/root/entrypoint.sh", "start"]
