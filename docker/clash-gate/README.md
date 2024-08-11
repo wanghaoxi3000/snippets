@@ -4,7 +4,7 @@ clash meta 网关
 
 ## 下载 clash-meta
 ```
-CLASH_VERSION=v1.18.5
+CLASH_VERSION=v1.18.7
 
 curl -LO https://github.com/MetaCubeX/mihomo/releases/download/${CLASH_VERSION}/mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
 gzip -d mihomo-linux-amd64-compatible-go120-${CLASH_VERSION}.gz
