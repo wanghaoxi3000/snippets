@@ -1,6 +1,6 @@
 FROM debian:12
 
-ARG XRAY_VERSION=v1.8.7
+ARG XRAY_VERSION=v24.9.30
 
 ENV TZ=Asia/Shanghai
 
