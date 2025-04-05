@@ -5,7 +5,7 @@ clash meta 网关
 
 ## Build docker
 ```
-bash build-image.sh ${CLASH_VERSION}
+bash build-image.sh ${CLASH_VERSION} ${METACUBEXD_VERSION}
 ```
 
 ## RUN
