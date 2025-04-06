@@ -52,7 +52,10 @@ gen_xray_config(){
         "rules": [
             {
                 "type": "field",
-                "domain": ["geosite:openai"],
+                "domain": [
+                  "geosite:openai",
+                  "geosite:google-cn"
+                ],
                 "outboundTag": "direct"
             },
             {
