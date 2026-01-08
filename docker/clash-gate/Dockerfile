@@ -1,12 +1,10 @@
-FROM alpine:20240807
+FROM alpine:3.23
 
 ENV LANG=en_US.UTF-8
 
 COPY clash-meta /usr/bin/clash
 COPY config/config.yaml /etc/clash/config/config.yaml
 COPY config/ui /etc/clash/config/ui
-COPY config/Country.mmdb /etc/clash/config/Country.mmdb
-COPY config/ruleset /etc/clash/config/ruleset
 COPY entrypoint.sh /root/entrypoint.sh
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
