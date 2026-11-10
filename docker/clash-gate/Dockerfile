@@ -6,15 +6,17 @@ COPY clash-meta /usr/bin/clash
 COPY config/config.yaml /etc/clash/config/config.yaml
 COPY config/ui /etc/clash/config/ui
 COPY entrypoint.sh /root/entrypoint.sh
+COPY update-sub.sh /usr/local/bin/update-sub.sh
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories \
-  && apk add --no-cache tzdata ca-certificates bash iptables iproute2 libcap \
+  && apk add --no-cache tzdata ca-certificates bash curl iptables iproute2 libcap \
   && cp -rf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime \
   && echo "Asia/Shanghai" > /etc/timezone \
   && apk del tzdata \
   && adduser --disabled-password --home "$(pwd)" -G root --no-create-home --uid 1086 clash \
   && chown clash -R  /etc/clash/ \
   && chmod +x /usr/bin/clash \
-  && chmod +x /root/entrypoint.sh
+  && chmod +x /root/entrypoint.sh \
+  && chmod +x /usr/local/bin/update-sub.sh
 
 CMD ["/root/entrypoint.sh", "start"]

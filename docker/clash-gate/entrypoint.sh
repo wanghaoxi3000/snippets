@@ -1,6 +1,22 @@
 #!/usr/bin/env bash
 
 set -ex
+# 订阅拉取: 直连优先生效于本次启动, 失败则继续用现有配置
+fetch_subscription_direct() {
+  [ -n "${SUB_URL:-}" ] || return 0
+  echo "fetch subscription (direct)..."
+  /usr/local/bin/update-sub.sh direct
+}
+
+# 运行期订阅更新: 经本地代理下载并热重载
+start_subscription_cron() {
+  [ -n "${SUB_URL:-}" ] || return 0
+  [ -n "${SUB_CRON:-}" ] || { echo "SUB_CRON not set, skip cron"; return 0; }
+
+  echo "${SUB_CRON} /usr/local/bin/update-sub.sh proxy >> /var/log/sub.log 2>&1" > /etc/crontabs/root
+  crond -b -l 2
+  echo "subscription cron installed: ${SUB_CRON}"
+}
 
 start_clash() {
   setcap 'cap_net_admin,cap_net_bind_service=+ep' /usr/bin/clash
@@ -121,12 +137,20 @@ set_router() {
   echo "clash is ready"
 
   start_iptables
+
+  # 直连失败时, clash 就绪后立即经代理补拉一次
+  if [ "${RETRY_VIA_PROXY:-}" = "1" ]; then
+    echo "retry subscription via proxy after clash ready..."
+    /usr/local/bin/update-sub.sh proxy || echo "proxy retry failed"
+  fi
 }
 
 start() {
     echo "start ..."
     stop_iptables
+    fetch_subscription_direct || RETRY_VIA_PROXY=1
     set_router &
+    start_subscription_cron
     start_clash
     echo "start end"
 }
