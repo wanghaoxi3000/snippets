@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-set -ex
+set -e
 # 订阅拉取: 直连优先生效于本次启动, 失败则继续用现有配置
 fetch_subscription_direct() {
   [ -n "${SUB_URL:-}" ] || return 0
@@ -13,7 +13,7 @@ start_subscription_cron() {
   [ -n "${SUB_URL:-}" ] || return 0
   [ -n "${SUB_CRON:-}" ] || { echo "SUB_CRON not set, skip cron"; return 0; }
 
-  echo "${SUB_CRON} /usr/local/bin/update-sub.sh proxy >> /var/log/sub.log 2>&1" > /etc/crontabs/root
+  echo "${SUB_CRON} /usr/local/bin/update-sub.sh proxy >> /proc/1/fd/1 2>&1" > /etc/crontabs/root
   crond -b -l 2
   echo "subscription cron installed: ${SUB_CRON}"
 }

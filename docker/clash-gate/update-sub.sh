@@ -9,7 +9,7 @@ set -euo pipefail
 CONFIG=/etc/clash/config/config.yaml
 TMP=/tmp/config.yaml.new
 MODE="${1:-proxy}"
-CONTROLLER="http://127.0.0.1:9090"
+CONTROLLER="${CONTROLLER:-http://127.0.0.1:9090}"
 
 # 代理模式经本地 clash 下载
 PROXY_OPT=()
