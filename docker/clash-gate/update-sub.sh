@@ -50,11 +50,15 @@ for _ in $(seq 1 10); do
   sleep 1
 done
 
-if curl -sf -X PUT "${CONTROLLER}/configs?force=true" \
-  -H "Content-Type: application/json" \
-  -d "{\"path\":\"${CONFIG}\"}" >/dev/null; then
-  echo "[sub] config updated and reloaded"
-else
-  echo "[sub] config updated but reload failed"
-  exit 1
-fi
+# 重载, 失败后重试 (controller 偶发未就绪)
+for _ in 1 2 3; do
+  if curl -sf -X PUT "${CONTROLLER}/configs?force=true" \
+    -H "Content-Type: application/json" \
+    -d "{\"path\":\"${CONFIG}\"}" >/dev/null; then
+    echo "[sub] config updated and reloaded"
+    exit 0
+  fi
+  sleep 2
+done
+echo "[sub] config updated but reload failed"
+exit 1
